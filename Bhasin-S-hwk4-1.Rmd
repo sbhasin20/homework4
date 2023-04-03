@@ -1,0 +1,151 @@
+---
+title: "Bhasin-S-hwk4-1"
+author: "Sachi Bhasin"
+date: "2023-04-02"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, modelsummary, data.table, gdata, scales,
+               kableExtra)
+if (!requireNamespace("AER", quietly = TRUE)) {
+  install.packages("AER")
+}
+library(AER)
+library(rdrobust)
+
+load("Hwk4_workspace.Rdata")
+```
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 1
+
+```{r}
+q1.plot
+```
+I think the number of plans is low for each country over time. Some counties only have 1 option, especially in the later years. Overtime, there has been a decrease in the number of plans per country. This may be because plans are merging within the insurance companies to have a higher quality rating. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 2
+
+```{r}
+graph_2
+```
+
+The star ratings have increased overtime. Especially after 2012, when the ACA was introduced, there has been a shift. The overall highest star ratings were seen in 2015, then 2012, and 2009 has the lowest overall star ratings. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 3
+
+```{r}
+q3.plot
+```
+
+The average benchmark payment has risen by about 40 dollars from 2009 to 2015. It then drops from 2014 to 2015 by about 75 dollars. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 4
+
+```{r}
+graph_4
+```
+
+Medicare Advantage has increased in popularity over the years. This share correlates with benchmarks for the most part until 2014. From 2014 to 2014, the benchmark decreases but the average share of medicare advantage continues to increase. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 5
+
+```{r}
+table_5
+```
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 6
+
+```{r}
+summary(regression6_1)
+```
+
+```{r}
+
+summary(regression6_2)
+```
+
+```{r}
+summary(regression6_3)
+```
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 7
+
+```{r}
+summary(reg_1)
+summary(reg_2)
+summary(reg_3)
+summary(reg_4)
+summary(reg_5)
+```
+
+As the bandwidth increases, the sensitivity decreases. Thus, a smaller bandwidth is more sensitive and more representative. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 8
+
+```{r}
+rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score1, binselect = "es",title = "RD Plot: Market Share", x.label="Summary Score", y.label="Market Share", masspoints="off")
+```
+
+```{r}
+rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score1, binselect = "es", 
+                   title = "RD Plot: Market Share", x.label="Summary Score", 
+                   y.label="Market Share", masspoints="off")
+```
+
+
+```{r}
+rdplot(y=ma.rd6$mkt_share, x=ma.rd6$score3, binselect = "es", 
+                   title = "RD Plot: Market Share", x.label="Summary Score", 
+                   y.label="Market Share", masspoints="off")
+```
+
+As the bandwidth increases, the ratings become less significant. There is a wider range so the rating does not reflect as strongly the quality of the program. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 9
+
+```{r}
+tab9
+```
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 10 
+
+Increasing star rating increases enrollments. This can be seen by the fact that the plans with a higher star rating had a higher number of enrollees, despite not having a drastic difference in quality. There is a bigger impact when the star ratings are on the lower end compared to when the star ratings are on the higher end. For exmaple, people are more likely to choose a 2.5 over a 2 rating versus a 4.5 over a 4 rating. 
+
