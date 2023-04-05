@@ -1,0 +1,128 @@
+---
+title: "Bhasin-S-hwk4-2"
+author: "Sachi Bhasin"
+date: "2023-04-05"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, ggplot2, dplyr, lubridate, stringr, readxl, modelsummary, data.table, gdata, scales,
+               kableExtra)
+if (!requireNamespace("AER", quietly = TRUE)) {
+  install.packages("AER")
+}
+library(AER)
+library(rdrobust)
+
+load("Hwk4_workspace.Rdata")
+```
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 1
+
+```{r}
+q1.plot 
+```
+I think that the number of plans is too many. In 2009, the average number of plans in a county was almost 40. I think the average number of plans should be around 8, which was not the case for any of the years from 2007 to 2015. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 2
+
+```{r}
+graph_2
+```
+
+The star ratings have increased overtime. Especially after 2012, when the ACA was introduced, there has been a shift. The overall highest star ratings were seen in 2015, then 2012, and 2009 has the lowest overall star ratings.
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 3
+
+```{r}
+avg.benchmark
+```
+
+The average benchmark payment has risen by about 60 dollars from 2008 to 2014. It then drops from 2014 to 2015 by about 40 dollars. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 4
+
+```{r}
+ma.share
+```
+Medicare Advantage has increased in popularity over the years. This share correlates with benchmarks for the most part until 2014. From 2014 to 2015, the benchmark decreases but the average share of medicare advantage continues to increase. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 5
+
+```{r}
+star_count
+```
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 6
+
+```{r}
+summary(regression6_1)
+summary(regression6_2)
+summary(regression6_3)
+```
+*I tried to create a joint table using modelsummary but kept getting an error message since it could not "extract the required information from a model of class "rdrobust" 
+
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 7
+
+```{r}
+summary(reg_1)
+summary(reg_2)
+summary(reg_3)
+summary(reg_4)
+summary(reg_5)
+```
+
+As the bandwidth increases, the sensitivity decreases. Thus, a smaller bandwidth is more sensitive and more representative. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 8
+
+```{r}
+
+question8
+```
+
+There appears to be a high density just above 3 stars. This means that there are a larger amount of plans being rounded up to 3 stars compared to rounded down. This could put the plans that are rounded down to 3 stars at a disadvantage. There is also high density just above 2 star ratings, and those plans are likely being rounded down to 2 stars.
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 9 
+
+I was not sure how to go about this question. In the dataset I created for part 2 of the assignment (just for 2009), there is no year column. So, I tried to go back and work with the final data set. I initially tried to filter the data that had HMO/HMOPOS under the plan_type column, yes under the pland column, and 2009 under the year column using the filter and group_by function. I know how to evaluate the plans above the threshold values but the part that I was unsure about was how to incorporate the plan characteristics into the analysis. I would assume that I have to use the rorobust package and filter the variables that I describe before as I created a density graph like I did in problem 4. However, I kept getting an error for this. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 10
+
+Increasing star rating increases enrollments. This can be seen by the fact that the plans with a higher star rating had a higher number of enrollees, despite not having a drastic difference in quality. There is a bigger impact when the star ratings are on the lower end compared to when the star ratings are on the higher end. For exmaple, people are more likely to choose a 2.5 over a 2 rating versus a 4.5 over a 4 rating. 
+
