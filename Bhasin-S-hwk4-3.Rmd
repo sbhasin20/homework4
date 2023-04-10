@@ -1,0 +1,209 @@
+---
+title: 'Homework 4'
+author: "Sachi Bhasin"
+date: "`r Sys.Date()`"
+header-includes:
+  - \usepackage{booktabs}
+output: 
+  bookdown::pdf_document2:
+    fig_caption: yes
+    toc: false
+---
+
+```{r setup, echo = FALSE}
+library(modelsummary)
+library(kableExtra)
+library(rdrobust)
+library(rddensity)
+library(lemon)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE, fig.width = 16/2, fig.height = 9/2, tidy.opts=list(width.cutoff=60), tidy=TRUE)
+
+load("Hwk4_workspace_4b.Rdata")
+```
+
+\vspace{.2in}
+\noindent Question 1
+
+```{r plot, include=T, eval=T, echo=FALSE, fig.cap="Distribution of Plan Counts by County Over Time", fig.ref = NULL, fig.with=5}
+q1.plot 
+```
+
+
+
+
+
+I think the number of plans is too few. In 2015, some counties had about 5 plans to choose from, which I think it is a little low. The number of plans are most likely decreasing overtime because insurance companies are combining their plans to gain a higher Star-Rating.
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 2
+
+```{r include=T, eval=T, echo=FALSE, fig.cap="Distribution of Star Ratings in 2009, 2012, and 2015", fig.ref = NULL, fig.with=5}
+graph_2
+```
+
+
+
+
+
+The star ratings have increased overtime. Especially after 2012, when the ACA was introduced, there has been a shift. The overall highest star ratings were seen in 2015, then 2012, and 2009 has the lowest overall star ratings.
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 3
+
+```{r include=T, eval=T, echo=FALSE, fig.cap="Average Benchmark Payment Over Time from 2009 through 2015", fig.ref = NULL, fig.with=5}
+avg.benchmark
+```
+
+
+
+
+
+The average benchmark payment has risen by about 60 dollars from 2008 to 2014. It then drops from 2014 to 2015 by about 40 dollars. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 4
+
+```{r include=T, eval=T, echo=FALSE, fig.cap="Average Share of Medicare Advantage Over Time from 2009 through 2015", fig.ref = NULL, fig.with=5}
+ma.share
+```
+
+
+
+
+
+
+Medicare Advantage has increased in popularity over the years. This market share correlates with benchmarks for the most part until 2014. From 2014 to 2015, the benchmark decreases but the average share of medicare advantage continues to increase. 
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 5
+
+## Number of Plans that our Rounded Up for their Star Rating
+
+```{r, render=lemon_print}
+final.2009
+```
+
+
+
+
+
+
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 6
+
+## Point Estimates Effect of Rounded Up Star Rating on Market Share 
+```{r}
+modelsummary(list("Star 3.0"=star30, "Star 3.5 "=star35, "Star 4.0"=star40, "Star 4.5"=star45), 
+                       title="Estimates of Star Rating", 
+                       coef_map=c('treatTRUE'="Treatment",
+                                  'score'="score"), 
+                       gof_map=list(list("raw"="nobs","clean"="N", "fmt"=0),
+                                    list("raw"="r.squared", "clean"="R\\textsuperscript{2}", "fmt"=2))) %>%
+kable_styling(latex_options=c("hold_position"), full_width = TRUE, position="center")
+```
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 7
+
+```{r seven, fig.cap= "Estimates with 95 Percent CI with Various Bandwidths"}
+question7
+```
+
+
+
+
+
+
+
+
+Based on Figure \@ref(fig:seven) ,the bandwidths for 3 to 3.5 star are the least reliable since it has the largest range in its 95 percent confidence interval (CI). With a smaller bandwidth of 0.1, all of the confidence intervals include 0. As the bandwidth increases, the 2.5 to 3 stars CI no longer overlaps with the 3 to 3.5 and 3.5 to 4 CIs. The larger star rating (3 to 3.5 and 3.5 to 4) CI seem to be more consistent compared to the 2.5 to 3.0 star ratings as the bandwidth increases. Thus, our findings are not sensitive to our choice of bandwidth as changes in bandwidth cause no significant changes in the estimates for all the star ratings. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 8
+
+## Examaning if Contracts Manipulate the Running Variable Before and After Threshold Values
+
+```{r include=T, eval=T, echo=FALSE}
+question8aplot$Estplot
+question8bplot$Estplot
+question8cplot$Estplot
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Based on the figures above, RD is not the best estimator since there is not a lot of mass around the thresholds. The RD does not seem to be close to continuous above and below the threshold given the jump seen on the graphs. It does not appear that the contracts manipulate the running variable. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 9
+
+## Examining Characteristics of Contracts Just Above and Below the Threshold Values
+
+```{r include=T, eval=T, echo=FALSE}
+plot.30
+plot.35
+plot.4
+```
+
+
+
+
+
+
+
+
+
+
+
+
+Based on the figures above, the plans above the threshold values have similar characteristics than contracts just below the threshold values using HMO and Part D status as plan characteristics. The difference is somewhat small and inconsistent across the star ratings. Given this small difference, the characteristics are similar for values just above and below the threshold value. 
+
+
+\newpage
+
+\vspace{.2in}
+\noindent Question 10 
+
+Based on my findings from 1-5, the effect of increasing a star rating on enrollments is positive for the lower star ratings and negative for the higher star ratings. Plans with a lower Star Rating that are rounded up will have more enrollments from being rounded up. On the other hand, plans with a higher Star Rating, such as 3.25 or 3.75, have a negative effect on market share. 
